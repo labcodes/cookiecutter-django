@@ -32,7 +32,10 @@ DJANGO_DEFAULT_FROM_EMAIL               DEFAULT_FROM_EMAIL          n/a         
 DJANGO_SERVER_EMAIL                     SERVER_EMAIL                n/a                                            "your_project_name <noreply@your_domain_name>"
 DJANGO_EMAIL_SUBJECT_PREFIX             EMAIL_SUBJECT_PREFIX        n/a                                            "[your_project_name] "
 DJANGO_ALLOWED_HOSTS                    ALLOWED_HOSTS               ['*']                                          ['your_domain_name']
+DJANGO_DATABASE_APPLICATION_NAME        n/a                         project_slug_web and project_slug_celery       project_slug_web and project_slug_celery
 ======================================= =========================== ============================================== ======================================================================
+
+Note: Note: The `DJANGO_DATABASE_APPLICATION_NAME` environment variable is used to define the `application_name` parameter in the PostgreSQL connection string. This configuration is particularly useful for easily identifying the source application of a query from the PostgreSQL logs. By using tools like pgbadger, you can quickly determine whether a query originates from Celery or the Django web application.
 
 The following table lists settings and their defaults for third-party applications, which may or may not be part of your project:
 

@@ -55,6 +55,19 @@ DATABASES = {
 }
 {%- endif %}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# https://www.postgresql.org/docs/current/runtime-config-logging.html#GUC-APPLICATION-NAME
+# NOTE: application_name must be an ASCII string
+# with only printable characters and a maximum
+# of 64 characters in length
+application_name = env.str(
+    "DJANGO_DATABASE_APPLICATION_NAME",
+    default="{{cookiecutter.project_slug}}_web"
+)
+application_name = application_name[:64]
+for _db_connection_name in DATABASES:
+    DATABASES[_db_connection_name].setdefault("OPTIONS", {})
+    DATABASES[_db_connection_name]["OPTIONS"]["application_name"] = application_name
+
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
